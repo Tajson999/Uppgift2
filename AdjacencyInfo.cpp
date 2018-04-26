@@ -39,4 +39,12 @@ bool AdjacencyInfo::operator!=(const AdjacencyInfo& other) const
 		|| this->arcWeight != other.arcWeight;
 }
 
+bool AdjacencyInfo::operator<(const AdjacencyInfo & other) const {
+	return this->arcWeight < other.arcWeight;
+}
+
+bool AdjacencyInfo::operator>(const AdjacencyInfo & other) const {
+	return this->arcWeight > other.arcWeight;
+}
+
 

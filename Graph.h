@@ -1,6 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 #include "List.h"
+#include "Heap.h"
 #include "AdjacencyInfo.h"
 
 enum GraphType { DIRECTED, UNDIRECTED }; // used for member variable in the Graph

@@ -75,6 +75,83 @@ int Graph::getNrOfVertices() const {
 	return this->nrOfVertex;
 }
 
+int Graph::outDegreeOfVertex(int theVertex) const {
+	return nodes[theVertex].length();
+}
+
+int Graph::inDegreeOfVertex(int theVertex) const {
+	int nrInVex = 0;
+	for (int i = 0; i < nrOfVertex; i++) {
+		if (i != theVertex) {
+			for (int j = 0; j < nodes[i].length(); j++) {
+				if (nodes[i].getAt(j).getNeighbourVertex() == theVertex) {
+					nrInVex++;
+				}
+			}
+		}
+		
+	}
+	return nrInVex;
+}
+
+List<int> Graph::getAllVerticesAdjacentTo(int theVertex) const {
+	List<int> list;
+	if (graphType == UNDIRECTED) {
+		for (int i = 0; i < nodes[theVertex].length(); i++) {
+			list.insertAt(0, nodes[theVertex].getAt(i).getNeighbourVertex());
+		}
+	}
+	else {
+		for (int j = 0; j < nrOfVertex; j++) {
+			for (int i = 0; i < nodes[j].length(); i++) {
+				if (!list.findElement(nodes[j].getAt(i).getNeighbourVertex())) {
+					list.insertAt(0, nodes[j].getAt(i).getNeighbourVertex());
+				}
+			}
+		}
+	}
+
+	return list;
+}
+
+void Graph::minSpanTree(List<AdjacencyInfo> minSpanTree[], int cap, int & totalCost) const {
+	if (graphType == DIRECTED) {
+		throw "Graph is directed";
+	}
+	else if (cap < nrOfVertex) {
+		throw "Array to small";
+	}
+	for (int i = 0; i < nrOfVertex; i++) {
+		minSpanTree[i] = nodes[i];
+	}
+	totalCost = 0;	
+	int failSafe = 0;
+	int nrOfDoneVert = 0;
+	Heap<AdjacencyInfo> heap;
+	List<int> doneVert;
+	//add first vertext to doneVert and add all the adyinfo to heap
+	doneVert.insertAt(0, 0);
+	for (int i = 0; i < nodes[0].length(); i++) {
+		heap.insert(nodes[0].getAt(i));
+	}
+
+	while (nrOfDoneVert < (nrOfVertex-1) && failSafe < ((nrOfVertex * nrOfVertex) + 2)) {
+		AdjacencyInfo comp = heap.getMin();
+		//if it not leads to a doneVert
+		if (!doneVert.findElement(comp.getNeighbourVertex())) {
+			//add the const, add it to doneVert and add all adyinfo to heap
+			totalCost += comp.getArcWeight();
+			doneVert.insertAt(0, comp.getNeighbourVertex());
+			for (int i = 0; i < nodes[comp.getNeighbourVertex()].length(); i++) {
+				heap.insert(nodes[comp.getNeighbourVertex()].getAt(i));
+			}
+			//increase nrOfDoneVert
+			nrOfDoneVert++;
+		}
+		failSafe++;
+	}
+}
+
 void Graph::printGraph() const {
 	if (graphType == 0) {
 		cout << "The graph is directed" << endl;

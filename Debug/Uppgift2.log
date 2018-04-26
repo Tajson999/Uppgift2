@@ -1,7 +1,3 @@
-﻿  TestMain.cpp
-  Generating Code...
-  Compiling...
-  Graph.cpp
-  Generating Code...
+﻿  Graph.cpp
 c:\users\tajson\source\repos\uppgift2\uppgift2\list.h(235): warning C4715: 'List<AdjacencyInfo>::getAt': not all control paths return a value
-  Uppgift2.vcxproj -> c:\Users\Tajson\source\repos\Uppgift2\Debug\Uppgift2.exe
+  Uppgift2.vcxproj -> C:\Users\Tajson\source\repos\Uppgift2\Debug\Uppgift2.exe

@@ -37,7 +37,6 @@ inline void Heap<T>::percolateDown(int hole) {
 	bool done = false;
 	T temp = arr[hole];
 	for (; done == false && hole * 2 <= nrOf;) {
-		cout << endl;
 		minChild = hole * 2;
 		if ((hole*2) + 1 <= nrOf && arr[(hole * 2) + 1] < arr[hole*2]){
 			minChild = (hole * 2) + 1;

@@ -14,5 +14,7 @@ public:
 	void setArcWeight(int arcWeight);
 	bool operator==(const AdjacencyInfo& other) const;
 	bool operator!=(const AdjacencyInfo& other) const;
+	bool operator<(const AdjacencyInfo& other) const;
+	bool operator>(const AdjacencyInfo& other) const;
 
 };

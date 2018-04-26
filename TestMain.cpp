@@ -54,6 +54,25 @@ int main() {
 
 	cout << endl << endl;
 
+	int totalcost = 0;
+	List<AdjacencyInfo> adjList[40];
+	int cap = 40;
+	try {
+		graph.minSpanTree(adjList, cap, totalcost);
+	}
+	catch (string s) {
+		cout << s << endl;
+	}
+	cout << "total cost " << totalcost << endl;
+	for (int i = 0; i < 9; i++) {
+		cout << "node " << i << " has arcs to: ";
+		for (int j = 0; j < adjList[i].length(); j++) {
+			cout << adjList[i].getAt(j).getNeighbourVertex() << "(w:" << adjList[i].getAt(j).getArcWeight() << "), ";
+		}
+		cout << endl;
+	}
+	cout << endl << endl;
+
 	if (graph.hasArc(0, 3)) {
 		cout << "the garph has a arc from 0 to 3\n";
 	}
@@ -108,6 +127,16 @@ int main() {
 	else {
 		cout << "did not removed a arc between 3 and 0 with weight 10\n";
 	}
+
+	cout << "node 6 has " << graph.inDegreeOfVertex(6) << " in degrees\n";
+	cout << "node 5 has " << graph.outDegreeOfVertex(5) << " out degress\n\n";
+
+	cout << "node 4 has ";
+	List<int> a = graph.getAllVerticesAdjacentTo(4);
+	for (int i = 0; i < a.length(); i++) {
+		cout << a.getAt(i) << " ";
+	}
+	cout << "as neibors\n\n";
 	
 	system("pause");
 	return 0;
