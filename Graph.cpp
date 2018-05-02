@@ -34,9 +34,12 @@ bool Graph::addArc(int sourceVertex, int destinationVertex, int arcWeight) {
 	}
 }
 
-bool Graph::hasArc(int sourceVertex, int destinationVertex) const throw(...){
+bool Graph::hasArc(int sourceVertex, int destinationVertex) const {
 	if (sourceVertex < 0 || sourceVertex > nrOfVertex) {
 		throw "Out of Bounds";
+	}
+	else if (nrOfVertex == 0) {
+		throw "Empty graph";
 	}
 	for (int i = 0; i < nodes[sourceVertex].length(); i++) {
 		if (nodes[sourceVertex].getAt(i).getNeighbourVertex() == destinationVertex) {
@@ -49,6 +52,9 @@ bool Graph::hasArc(int sourceVertex, int destinationVertex) const throw(...){
 bool Graph::removeArc(int sourceVertex, int destinationVertex, int arcWeight) {
 	if (sourceVertex < 0 || sourceVertex > nrOfVertex) {
 		throw "Out of Bounds";
+	}
+	else if (nrOfVertex == 0) {
+		throw "Empty graph";
 	}
 	bool removed = false;
 	
@@ -76,6 +82,12 @@ int Graph::getNrOfVertices() const {
 }
 
 int Graph::outDegreeOfVertex(int theVertex) const {
+	if (theVertex < 0 || theVertex > nrOfVertex) {
+		throw "Out of Bounds";
+	}
+	else if (nrOfVertex == 0) {
+		throw "Empty graph";
+	}
 	return nodes[theVertex].length();
 }
 

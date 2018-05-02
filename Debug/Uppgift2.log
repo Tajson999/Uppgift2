@@ -1,3 +1,4 @@
-﻿  Graph.cpp
-c:\users\tajson\source\repos\uppgift2\uppgift2\list.h(235): warning C4715: 'List<AdjacencyInfo>::getAt': not all control paths return a value
-  Uppgift2.vcxproj -> C:\Users\Tajson\source\repos\Uppgift2\Debug\Uppgift2.exe
+﻿  TestMain.cpp
+c:\users\alexa\desktop\uppgift2\list.h(235): warning C4715: 'List<AdjacencyInfo>::getAt': not all control paths return a value
+c:\users\alexa\desktop\uppgift2\list.h(235): warning C4715: 'List<int>::getAt': not all control paths return a value
+  Uppgift2.vcxproj -> C:\Users\alexa\Desktop\Uppgift2\Debug\Uppgift2.exe

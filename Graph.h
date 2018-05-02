@@ -26,7 +26,7 @@ public:
 	void reset(int nrOfVert, GraphType graphType);
 	bool isDirected() const;
 	bool addArc(int sourceVertex, int destinationVertex, int arcWeight);
-	bool hasArc(int sourceVertex, int destinationVertex) const throw(...);
+	bool hasArc(int sourceVertex, int destinationVertex) const;
 	bool removeArc(int sourceVertex, int destinationVertex, int arcWeight);
 	int getNrOfVertices() const;
 	int outDegreeOfVertex(int theVertex) const;
