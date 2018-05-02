@@ -35,45 +35,37 @@ bool Graph::addArc(int sourceVertex, int destinationVertex, int arcWeight) {
 }
 
 bool Graph::hasArc(int sourceVertex, int destinationVertex) const {
-	if (sourceVertex < 0 || sourceVertex > nrOfVertex) {
-		throw "Out of Bounds";
-	}
-	else if (nrOfVertex == 0) {
-		throw "Empty graph";
-	}
-	for (int i = 0; i < nodes[sourceVertex].length(); i++) {
-		if (nodes[sourceVertex].getAt(i).getNeighbourVertex() == destinationVertex) {
-			return true;
+	bool hasArc = false;
+	if (sourceVertex >= 0 && sourceVertex < nrOfVertex && nrOfVertex != 0) {
+		for (int i = 0; i < nodes[sourceVertex].length(); i++) {
+			if (nodes[sourceVertex].getAt(i).getNeighbourVertex() == destinationVertex) {
+				hasArc = true;
+			}
 		}
 	}
-	return false;
+	
+	return hasArc;
 }
 
 bool Graph::removeArc(int sourceVertex, int destinationVertex, int arcWeight) {
-	if (sourceVertex < 0 || sourceVertex > nrOfVertex) {
-		throw "Out of Bounds";
-	}
-	else if (nrOfVertex == 0) {
-		throw "Empty graph";
-	}
 	bool removed = false;
-	
-	for (int i = 0; !removed && i < nodes[sourceVertex].length(); i++) {
-		
-		if (nodes[sourceVertex].getAt(i).getNeighbourVertex() == destinationVertex && nodes[sourceVertex].getAt(i).getArcWeight() == arcWeight) {
-			if (graphType == UNDIRECTED) {
-				//could do a recursive call to removeArc with dest and src swaped but it would run one more time then it has to (3 in total)
-				for (int j = 0; j < nodes[destinationVertex].length(); j++) {
-					if (nodes[destinationVertex].getAt(j).getNeighbourVertex() == sourceVertex && nodes[destinationVertex].getAt(j).getArcWeight() == arcWeight) {
-						nodes[destinationVertex].removeAt(j);
+	if (sourceVertex >= 0 && sourceVertex < nrOfVertex && nrOfVertex != 0) {
+		for (int i = 0; !removed && i < nodes[sourceVertex].length(); i++) {
+
+			if (nodes[sourceVertex].getAt(i).getNeighbourVertex() == destinationVertex && nodes[sourceVertex].getAt(i).getArcWeight() == arcWeight) {
+				if (graphType == UNDIRECTED) {
+					//could do a recursive call to removeArc with dest and src swaped but it would run one more time then it has to (3 in total)
+					for (int j = 0; j < nodes[destinationVertex].length(); j++) {
+						if (nodes[destinationVertex].getAt(j).getNeighbourVertex() == sourceVertex && nodes[destinationVertex].getAt(j).getArcWeight() == arcWeight) {
+							nodes[destinationVertex].removeAt(j);
+						}
 					}
 				}
+				nodes[sourceVertex].removeAt(i);
+				removed = true;
 			}
-			nodes[sourceVertex].removeAt(i);
-			removed = true;
 		}
 	}
-
 	return removed;
 }
 
@@ -82,13 +74,13 @@ int Graph::getNrOfVertices() const {
 }
 
 int Graph::outDegreeOfVertex(int theVertex) const {
-	if (theVertex < 0 || theVertex > nrOfVertex) {
-		throw "Out of Bounds";
+	int nrOfOutDegrees = 0;
+
+	if (theVertex >= 0 && theVertex < nrOfVertex && nrOfVertex != 0) {
+		nrOfOutDegrees = nodes[theVertex].length();
 	}
-	else if (nrOfVertex == 0) {
-		throw "Empty graph";
-	}
-	return nodes[theVertex].length();
+
+	return nrOfOutDegrees;
 }
 
 int Graph::inDegreeOfVertex(int theVertex) const {
