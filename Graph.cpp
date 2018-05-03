@@ -118,16 +118,19 @@ List<int> Graph::getAllVerticesAdjacentTo(int theVertex) const {
 	return list;
 }
 
-void Graph::minSpanTree(List<AdjacencyInfo> minSpanTree[], int cap, int & totalCost) const {
+void Graph::minSpanTree(List<AdjacencyInfo> minSpanTree[], int cap, int & totalCost) const throw(...){
 	if (graphType == DIRECTED) {
 		throw "Graph is directed";
 	}
 	else if (cap < nrOfVertex) {
 		throw "Array to small";
 	}
+
+	List<AdjacencyInfo> *nodesCopy = new List<AdjacencyInfo>[nrOfVertex];
 	for (int i = 0; i < nrOfVertex; i++) {
-		minSpanTree[i] = nodes[i];
+		nodesCopy[i] = nodes[i];
 	}
+
 	totalCost = 0;	
 	int failSafe = 0;
 	int nrOfDoneVert = 0;
@@ -149,11 +152,34 @@ void Graph::minSpanTree(List<AdjacencyInfo> minSpanTree[], int cap, int & totalC
 			for (int i = 0; i < nodes[comp.getNeighbourVertex()].length(); i++) {
 				heap.insert(nodes[comp.getNeighbourVertex()].getAt(i));
 			}
+			//searching for the node that the current minimum arc is from
+			//then adding the arc to the source and destinaion index of minSpanTee
+			//then deleting the arc from the two nodes
+			for (int i = 0; i < nrOfVertex; i++) {
+				if (doneVert.findElement(i)) {
+					for (int j = 0; j < nodesCopy[i].length(); j++) {
+						if (nodesCopy[i].getAt(j) == comp) {
+							//inserting the arc to the two nodes
+							minSpanTree[i].insertAt(0, comp);
+							minSpanTree[comp.getNeighbourVertex()].insertAt(0,AdjacencyInfo(i, comp.getArcWeight()));
+							//deleting the arc from the sorce node
+							nodesCopy[i].removeAt(j);
+							//deleting the arc from the dest node
+							for (int k = 0; k < nodesCopy[comp.getNeighbourVertex()].length(); k++) {
+								if (nodesCopy[comp.getNeighbourVertex()].getAt(k).getNeighbourVertex() == i) {
+									nodesCopy[comp.getNeighbourVertex()].removeAt(k);
+								}
+							}
+						}
+					}
+				}
+			}
 			//increase nrOfDoneVert
 			nrOfDoneVert++;
 		}
 		failSafe++;
 	}
+	delete[] nodesCopy;
 }
 
 void Graph::printGraph() const {

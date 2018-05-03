@@ -32,7 +32,7 @@ public:
 	int outDegreeOfVertex(int theVertex) const;
 	int inDegreeOfVertex(int theVertex) const;
 	List<int> getAllVerticesAdjacentTo(int theVertex) const;
-	void minSpanTree(List<AdjacencyInfo> minSpanTree[], int cap, int &totalCost)const;
+	void minSpanTree(List<AdjacencyInfo> minSpanTree[], int cap, int &totalCost)const throw(...);
 	void printGraph() const;
 };
 #endif // !GRAPH_H

@@ -57,9 +57,12 @@ int main() {
 	cout << "total cost " << totalcost << endl;
 	for (int i = 0; i < 9; i++) {
 		cout << "node " << i << " has arcs to: ";
-		for (int j = 0; j < adjList[i].length(); j++) {
-			cout << adjList[i].getAt(j).getNeighbourVertex() << "(w:" << adjList[i].getAt(j).getArcWeight() << "), ";
+		if (adjList[i].length() != 0) {
+			for (int j = 0; j < adjList[i].length(); j++) {
+				cout << adjList[i].getAt(j).getNeighbourVertex() << "(w:" << adjList[i].getAt(j).getArcWeight() << "), ";
+			}
 		}
+		
 		cout << endl;
 	}
 	cout << endl << endl;
