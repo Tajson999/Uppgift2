@@ -28,7 +28,6 @@ int main() {
 		while (file >> from >> to >> weight) {
 			if (directed == 'U') {
 				graph.addArc(from, to, weight);
-				graph.addArc(to, from, weight);
 			}
 			else {
 				graph.addArc(from, to, weight);
