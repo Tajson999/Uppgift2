@@ -29,6 +29,10 @@ bool Graph::addArc(int sourceVertex, int destinationVertex, int arcWeight) {
 		return false;
 	}
 	else {
+		if (this->graphType == UNDIRECTED) {
+			nodes[sourceVertex].insertAt(0, AdjacencyInfo(destinationVertex, arcWeight));
+			nodes[test]
+		}
 		nodes[sourceVertex].insertAt(0, AdjacencyInfo(destinationVertex, arcWeight));
 		return true;
 	}
@@ -155,21 +159,26 @@ void Graph::minSpanTree(List<AdjacencyInfo> minSpanTree[], int cap, int & totalC
 			//searching for the node that the current minimum arc is from
 			//then adding the arc to the source and destinaion index of minSpanTee
 			//then deleting the arc from the two nodes
-			for (int i = 0; i < nrOfVertex; i++) {
+			//AddedArc makes sure that only one arc is taken a triangel with equal weighed sides appear
+			bool addedArc = false;
+			for (int i = 0; i < nrOfVertex && addedArc == false; i++) {
 				if (doneVert.findElement(i)) {
 					for (int j = 0; j < nodesCopy[i].length(); j++) {
 						if (nodesCopy[i].getAt(j) == comp) {
-							//inserting the arc to the two nodes
+							//inserting the arc to the src index of minSpanTree
 							minSpanTree[i].insertAt(0, comp);
-							minSpanTree[comp.getNeighbourVertex()].insertAt(0,AdjacencyInfo(i, comp.getArcWeight()));
 							//deleting the arc from the sorce node
 							nodesCopy[i].removeAt(j);
-							//deleting the arc from the dest node
+							//need first to find the List index of the minimum arc
 							for (int k = 0; k < nodesCopy[comp.getNeighbourVertex()].length(); k++) {
 								if (nodesCopy[comp.getNeighbourVertex()].getAt(k).getNeighbourVertex() == i) {
+									//adding the arc to the destination index of minSpanTree
+									minSpanTree[comp.getNeighbourVertex()].insertAt(0, nodesCopy[comp.getNeighbourVertex()].getAt(k));
+									//deleting the arc from the dest node
 									nodesCopy[comp.getNeighbourVertex()].removeAt(k);
 								}
 							}
+							addedArc = true;
 						}
 					}
 				}
@@ -183,7 +192,7 @@ void Graph::minSpanTree(List<AdjacencyInfo> minSpanTree[], int cap, int & totalC
 }
 
 void Graph::printGraph() const {
-	if (graphType == 0) {
+	if (graphType == DIRECTED) {
 		cout << "The graph is directed" << endl;
 	}
 	else {

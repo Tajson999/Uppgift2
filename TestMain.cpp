@@ -55,7 +55,7 @@ int main() {
 		cout << s << endl;
 	}
 	cout << "total cost " << totalcost << endl;
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < 9 ; i++) {
 		cout << "node " << i << " has arcs to: ";
 		if (adjList[i].length() != 0) {
 			for (int j = 0; j < adjList[i].length(); j++) {
