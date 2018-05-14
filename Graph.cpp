@@ -106,15 +106,9 @@ int Graph::inDegreeOfVertex(int theVertex) const {
 
 List<int> Graph::getAllVerticesAdjacentTo(int theVertex) const {
 	List<int> list;
-	
-	for (int j = 0; j < nrOfVertex; j++) {
-		for (int i = 0; i < nodes[j].length(); i++) {
-			if (!list.findElement(nodes[j].getAt(i).getNeighbourVertex())) {
-				list.insertAt(0, nodes[j].getAt(i).getNeighbourVertex());
-			}
-		}
+	for (int i = 0; i < nodes[theVertex].length(); i++) {
+		list.insertAt(0, nodes[theVertex].getAt(i).getNeighbourVertex());
 	}
-	
 	return list;
 }
 
